@@ -1,10 +1,7 @@
 package co.id.hanif.dev.onetable.crudonetable.controller;
 
-import co.id.hanif.dev.onetable.crudonetable.CrudOneTableApplication;
 import co.id.hanif.dev.onetable.crudonetable.entity.Student;
 import co.id.hanif.dev.onetable.crudonetable.repository.RepositoryStudent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,4 +24,6 @@ public class ControllerStudent {
         repositoryStudent.save(student);
         return student.toString();
     }
+
+
 }
