@@ -4,10 +4,10 @@ import co.id.hanif.dev.onetable.crudonetable.entity.Student;
 import co.id.hanif.dev.onetable.crudonetable.repository.RepositoryStudent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+
 
 @Controller
 @RequestMapping(path = "/demo")
@@ -24,6 +24,35 @@ public class ControllerStudent {
         repositoryStudent.save(student);
         return student.toString();
     }
+
+//  http://localhost:8080/demo/findAll
+    @GetMapping(path = "/findAll")
+    public @ResponseBody Iterable<Student> findAll(){
+        return repositoryStudent.findAll();
+    }
+
+//  http://localhost:8080/demo/findById?id=10511173
+    @GetMapping(path = "/findById")
+    public @ResponseBody String findByStudentId(@RequestParam String id){
+        return repositoryStudent.findByStudentId(id).toString();
+    }
+
+//  http://localhost:8080/demo/editName?name=Muhamad Hanif Muhsin, S.Kom&id=10511173
+    @PutMapping(path ="/editName")
+    @Transactional
+    public @ResponseBody String editNameById(@RequestParam String name, @RequestParam String id){
+        repositoryStudent.updateName(name,id);
+        return "Updated";
+    }
+
+//  http://localhost:8080/demo/deleteById?id=10511150
+    @Transactional
+    @DeleteMapping(path = "/deleteById")
+    public @ResponseBody String deleteStudentById(@RequestParam String id){
+        repositoryStudent.deleteStudentById(id);
+        return "Deleted";
+    }
+
 
 
 }
